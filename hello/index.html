@@ -1,0 +1,74 @@
+<html>
+    <head>
+
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link href=/static/css/main.css rel="stylesheet" type="text/css">
+        <title>ship api document</title>
+    </head>
+    <body>
+        <p><a href="https://neo1218.github.io/ship">ship 文档</a></p>
+<h1>API文档</h1>
+<h2>ship-cli API</h2>
+<p><strong>ship init sitename</strong></p>
+<div class="codehilite"><pre><span></span>:param sitename: 站点的名称
+在当前目录下新建一个名为sitename的站点, 并集成默认主题, 开启dev server.
+如果已存在名为sitename的目录则终止创建的过程并提出警告.
+</pre></div>
+
+
+<p><strong>ship server</strong></p>
+<div class="codehilite"><pre><span></span>启动开发服务器, 进行本地预览
+</pre></div>
+
+
+<p><strong>ship new title</strong></p>
+<div class="codehilite"><pre><span></span>:param title: 文章文件名
+在{site}/app/pages/目录下创建一个title.md的文件(后缀名参考配置),
+文件内容自动填入下列信息
+
+title: 文章标题
+date: 2016-07-17 21:21:21 日期(自动生成)
+tags: [&#39;tag1&#39;, &#39;tag2&#39;] 标签
+</pre></div>
+
+
+<p><strong>ship build</strong></p>
+<div class="codehilite"><pre><span></span>全站静态化到{site}/app/build/目录
+</pre></div>
+
+
+<p><strong>ship upload</strong></p>
+<div class="codehilite"><pre><span></span>一键部署到git pages, 前提是[deploy on github/(git) pages]配置正确.
+</pre></div>
+
+
+<p><strong>ship upgrade themename</strong></p>
+<div class="codehilite"><pre><span></span>:param themename: 主题名称
+切换主题: 首先clone主题到{site}/app/themes/themename, 然后使用ship upgrade
+themename集成主题.
+</pre></div>
+
+
+<p><strong>ship status</strong></p>
+<h2>ship-site API</h2>
+<h3>user_config_dict</h3>
+<div class="codehilite"><pre><span></span>&#39;ARTICLE_PER_PAGE&#39;: 平均每页文章数
+&#39;SITE_NAME&#39;: 站点名称
+&#39;SITE_URL&#39;: 站点url
+&#39;SITE_DESC&#39;: 站点描述
+&#39;SITE_OWNER&#39;: 站点作者
+&#39;GITHUB_URL&#39;: github
+&#39;WEIBO_URL&#39;: 微博
+&#39;TWITTER_URL&#39;: twitter
+</pre></div>
+
+
+<h3>api_dict</h3>
+<div class="codehilite"><pre><span></span>&#39;posts&#39;: 所有pages下文章列表
+&#39;posts_sum&#39;: 文章的总数目
+&#39;latests&#39;: 所有文章列表按最近生成时间排序
+&#39;tags&#39;: 所有标签列表
+&#39;archive&#39;: 所有归档列表
+</pre></div>
+    </body>
+</html>

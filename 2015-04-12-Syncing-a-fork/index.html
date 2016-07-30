@@ -1,0 +1,87 @@
+<html>
+    <head>
+
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link href=/static/css/main.css rel="stylesheet" type="text/css">
+        <title>同步一个 fork</title>
+    </head>
+    <body>
+        <ul>
+<li>content
+{:toc}</li>
+</ul>
+<p>fork 了别人的仓库后，原作者又更新了仓库，如何将自己的代码和原仓库保持一致？本文将给你解答。</p>
+<h2>如何使用搜索引擎</h2>
+<p>其实这个问题并不难，我又被坑了。百度搜的东西不靠谱啊，以后这种问题一定要用<strong>英文</strong>在 <a href="http://www.google.com">Google</a> 或者 <a href="http://cn.bing.com/">Bing</a> 上搜索，这样才能搜到原汁原味的答案。就当是一个教训吧。   </p>
+<p>搜索 fork sync，就可以看到 GitHub 自己的帮助文档 <a href="https://help.github.com/articles/syncing-a-fork/">Syncing a fork</a> 点进去看这篇的时候，注意到有一个 Tip: Before you can sync your fork with an upstream repository, you must <a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/">configure a remote that points to the upstream repository</a> in Git.   </p>
+<p>根据这两篇文章，问题迎刃而解！   </p>
+<h2>具体方法</h2>
+<h3>Configuring a remote for a fork</h3>
+<ul>
+<li>
+<p>给 fork 配置一个 remote   </p>
+</li>
+<li>
+<p>主要使用 <code>git remote -v</code> 查看远程状态。   </p>
+</li>
+</ul>
+<p>```
+git remote -v</p>
+<h1>origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)</h1>
+<h1>origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)</h1>
+<p>```</p>
+<ul>
+<li>添加一个将被同步给 fork 远程的上游仓库      </li>
+</ul>
+<p><code>git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git</code></p>
+<ul>
+<li>再次查看状态确认是否配置成功。   </li>
+</ul>
+<p>```
+git remote -v</p>
+<h1>origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)</h1>
+<h1>origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)</h1>
+<h1>upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (fetch)</h1>
+<h1>upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (push)</h1>
+<p>```</p>
+<h3>Syncing a fork</h3>
+<ul>
+<li>从上游仓库 fetch 分支和提交点，传送到本地，并会被存储在一个本地分支 upstream/master <br />
+<code>git fetch upstream</code>    </li>
+</ul>
+<p>```
+git fetch upstream</p>
+<h1>remote: Counting objects: 75, done.</h1>
+<h1>remote: Compressing objects: 100% (53/53), done.</h1>
+<h1>remote: Total 62 (delta 27), reused 44 (delta 9)</h1>
+<h1>Unpacking objects: 100% (62/62), done.</h1>
+<h1>From https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY</h1>
+<h1>* [new branch]      master     -&gt; upstream/master</h1>
+<p>```</p>
+<ul>
+<li>切换到本地主分支(如果不在的话)  <br />
+<code>git checkout master</code>    </li>
+</ul>
+<p>```
+git checkout master</p>
+<h1>Switched to branch 'master'</h1>
+<p>```</p>
+<ul>
+<li>把 upstream/master 分支合并到本地 master 上，这样就完成了同步，并且不会丢掉本地修改的内容。  <br />
+<code>git merge upstream/master</code>      </li>
+</ul>
+<p>```
+git merge upstream/master</p>
+<h1>Updating a422352..5fdff0f</h1>
+<h1>Fast-forward</h1>
+<h1>README                    |    9 -------</h1>
+<h1>README.md                 |    7 ++++++</h1>
+<h1>2 files changed, 7 insertions(+), 9 deletions(-)</h1>
+<h1>delete mode 100644 README</h1>
+<h1>create mode 100644 README.md</h1>
+<p>```</p>
+<ul>
+<li>如果想更新到 GitHub 的 fork 上，直接 <code>git push origin master</code> 就好了。</li>
+</ul>
+    </body>
+</html>
